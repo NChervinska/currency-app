@@ -1,4 +1,4 @@
-package com.currencyapp
+package com.currencyapp.presentation
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -15,7 +15,6 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             CurrencyAppTheme {
-                // A surface container using the 'background' color from the theme
                 Surface(color = MaterialTheme.colors.background) {
                     Greeting("Android")
                 }
