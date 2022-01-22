@@ -1,8 +1,6 @@
 package com.currencyapp.data.repository
 
 import com.currencyapp.data.remote.CoinApi
-import com.currencyapp.data.remote.dto.CoinDetailDto
-import com.currencyapp.data.remote.dto.CoinDto
 import com.currencyapp.data.remote.dto.toCoin
 import com.currencyapp.data.remote.dto.toCoinDetail
 import com.currencyapp.domain.model.Coin
@@ -18,6 +16,7 @@ class CoinRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getCoinById(coinId: String): CoinDetail {
+        print(coinId);
         return api.getCoinById(coinId = coinId).toCoinDetail()
     }
 }

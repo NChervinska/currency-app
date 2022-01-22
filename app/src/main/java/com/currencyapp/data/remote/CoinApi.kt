@@ -2,7 +2,8 @@ package com.currencyapp.data.remote
 
 import com.currencyapp.data.remote.dto.CoinDetailDto
 import com.currencyapp.data.remote.dto.CoinDto
-import retrofit2.http.*
+import retrofit2.http.GET
+import retrofit2.http.Path
 
 interface CoinApi {
     @GET("/v1/coins")
