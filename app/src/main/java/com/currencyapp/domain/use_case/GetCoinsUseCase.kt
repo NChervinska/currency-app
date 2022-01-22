@@ -1,7 +1,6 @@
-package com.currencyapp.domain.use_case.get_coins
+package com.currencyapp.domain.use_case
 
 import com.currencyapp.common.Resource
-import com.currencyapp.data.remote.dto.toCoin
 import com.currencyapp.domain.model.Coin
 import com.currencyapp.domain.repository.CoinRepository
 import kotlinx.coroutines.flow.Flow
@@ -16,8 +15,8 @@ class GetCoinsUseCase @Inject constructor(
     operator fun invoke(): Flow<Resource<List<Coin>>> = flow {
         try {
             emit(Resource.Loading<List<Coin>>())
-            val coins = repository.getCoins().map { it.toCoin() }
-            emit(Resource.Success<List<Coin>>(coins))
+            val coins = repository.getCoins()
+            emit(Resource.Success<List<Coin>>(data = coins))
         } catch (e: HttpException) {
             emit(Resource.Error<List<Coin>>(e.localizedMessage ?: "error"))
         } catch (e: IOException) {

@@ -1,4 +1,4 @@
-package com.currencyapp.domain.use_case.get_coin
+package com.currencyapp.domain.use_case
 
 import com.currencyapp.common.Resource
 import com.currencyapp.data.remote.dto.toCoinDetail
@@ -16,8 +16,8 @@ class GetCoinUseCase @Inject constructor(
     operator fun invoke(coinId: String): Flow<Resource<CoinDetail>> = flow {
         try {
             emit(Resource.Loading<CoinDetail>())
-            val coin = repository.getCoinById(coinId).toCoinDetail()
-            emit(Resource.Success<CoinDetail>(coin))
+            val coin = repository.getCoinById(coinId)
+            emit(Resource.Success<CoinDetail>(data = coin))
         } catch (e: HttpException) {
             emit(Resource.Error<CoinDetail>(e.localizedMessage ?: "error"))
         } catch (e: IOException) {

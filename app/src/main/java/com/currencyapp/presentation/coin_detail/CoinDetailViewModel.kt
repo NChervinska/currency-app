@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.currencyapp.common.Constants
 import com.currencyapp.common.Resource
-import com.currencyapp.domain.use_case.get_coin.GetCoinUseCase
+import com.currencyapp.domain.use_case.GetCoinUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
