@@ -5,8 +5,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
-import com.currencyapp.presentation.coin_list.components.CoinListItem
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Divider
@@ -14,102 +12,84 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterVertically
-import androidx.compose.ui.focus.focusModifier
-
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import com.google.accompanist.flowlayout.FlowRow
 import com.currencyapp.presentation.coin_detail.components.CoinTag
 import com.currencyapp.presentation.coin_detail.components.TeamListItem
-import com.google.accompanist.flowlayout.FlowRow
 
 @Composable
 fun CoinDetailScreen(
     viewModel: CoinDetailViewModel = hiltViewModel()
-){
+) {
     val state = viewModel.state.value
-
-    Box(modifier = Modifier.fillMaxSize()){
-
-        state.coin?.let { coinDetail ->
+    Box(modifier = Modifier.fillMaxSize()) {
+        state.coin?.let { coin ->
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),
                 contentPadding = PaddingValues(20.dp)
-            ){
+            ) {
                 item {
-                    Row(modifier = Modifier
-                        .fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                    ){
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
                         Text(
-                            text = "${coinDetail.rank}. ${coinDetail.name} (${coinDetail.symbol})",
+                            text = "${coin.rank}. ${coin.name} (${coin.symbol})",
                             style = MaterialTheme.typography.h2,
-                            overflow = TextOverflow.Ellipsis,
-                            modifier = Modifier
-                                .weight(8f)
+                            modifier = Modifier.weight(8f)
                         )
                         Text(
-                            text = if (coinDetail.isActive) "active" else "inactive",
-                            color = if (coinDetail.isActive) Color.Green else Color.Red,
+                            text = if (coin.isActive) "active" else "inactive",
+                            color = if (coin.isActive) Color.Green else Color.Red,
                             fontStyle = FontStyle.Italic,
                             textAlign = TextAlign.End,
-                            modifier = Modifier.align(Alignment.CenterVertically)
+                            modifier = Modifier
+                                .align(CenterVertically)
                                 .weight(2f)
-
                         )
                     }
-
-                    Spacer(modifier = Modifier.height(16.dp))
-
+                    Spacer(modifier = Modifier.height(15.dp))
                     Text(
-                        text = coinDetail.description,
-                        style = MaterialTheme.typography.body2,
+                        text = coin.description,
+                        style = MaterialTheme.typography.body2
                     )
-
-                    Spacer(modifier = Modifier.height(16.dp))
-
+                    Spacer(modifier = Modifier.height(15.dp))
                     Text(
                         text = "Tags",
-                        style = MaterialTheme.typography.h3,
+                        style = MaterialTheme.typography.h3
                     )
-
-                    Spacer(modifier = Modifier.height(16.dp))
-
+                    Spacer(modifier = Modifier.height(15.dp))
                     FlowRow(
-                        mainAxisSpacing = 12.dp,
-                        crossAxisSpacing = 12.dp,
+                        mainAxisSpacing = 10.dp,
+                        crossAxisSpacing = 10.dp,
                         modifier = Modifier.fillMaxWidth()
-                    ){
-                        coinDetail.tags.forEach { tag ->
+                    ) {
+                        coin.tags.forEach { tag ->
                             CoinTag(tag = tag)
                         }
                     }
-
-                    Spacer(modifier = Modifier.height(16.dp))
-
+                    Spacer(modifier = Modifier.height(15.dp))
                     Text(
                         text = "Team members",
-                        style = MaterialTheme.typography.h3,
+                        style = MaterialTheme.typography.h3
                     )
-
-                    Spacer(modifier = Modifier.height(16.dp))
-
+                    Spacer(modifier = Modifier.height(15.dp))
                 }
-                items(coinDetail.team){ teamMember ->
+                items(coin.team) { teamMember ->
                     TeamListItem(
                         teamMember = teamMember,
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(12.dp)
+                            .padding(10.dp)
                     )
                     Divider()
                 }
             }
         }
-
-        if (state.error.isNotBlank()){
+        if (state.error.isNotBlank()) {
             Text(
                 text = state.error,
                 color = MaterialTheme.colors.error,
@@ -120,10 +100,8 @@ fun CoinDetailScreen(
                     .align(Alignment.Center)
             )
         }
-        if (state.isLoading){
-            CircularProgressIndicator(
-                modifier = Modifier.align(Alignment.Center)
-            )
+        if (state.isLoading) {
+            CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
         }
     }
 }

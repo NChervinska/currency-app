@@ -1,6 +1,7 @@
 package com.currencyapp.domain.model
 
-import com.currencyapp.data.remote.dto.*
+import com.currencyapp.data.remote.dto.TeamMember
+
 
 data class CoinDetail (
     val description: String,

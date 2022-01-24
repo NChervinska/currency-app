@@ -1,7 +1,6 @@
 package com.currencyapp.domain.use_case
 
 import com.currencyapp.common.Resource
-import com.currencyapp.data.remote.dto.toCoinDetail
 import com.currencyapp.domain.model.CoinDetail
 import com.currencyapp.domain.repository.CoinRepository
 import kotlinx.coroutines.flow.Flow
